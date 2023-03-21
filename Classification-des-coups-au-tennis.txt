@@ -1,0 +1,154 @@
+Classification des coups au tennis
+Séquence 1 :
+091750
+5 coup droit
+
+Séquence 2 :
+002212
+1 1 2 1 2 1 2 2 1 1 1
+
+Séquence 3 :
+092328
+2 1 1
+
+Séquence 4 :
+0924
+1 2 1
+Séquence 5
+092519
+1 1 1 1 2 1 1
+
+Séquence 6 :
+092640
+1 (1 smash )
+
+Séquence 7 :
+092712
+1 1 2 1 1 1 1 1 2 1 1
+
+Séquence 8
+092903
+1 11 1, volé revers, volé coup droit
+
+Séquence 9
+093410
+1 1 1 1 1 1 1
+
+Séquence 10
+093512
+1 2 1 1 1 1 2 1 2
+
+Séquence 11
+093634
+2 1 2 1 1 1 1
+
+Séquence 12
+0938
+1 1 1
+
+Séquence 13 (problème sur le dernier coup)
+094029
+1 1 1 1 1 2 2
+
+Séquence 14
+094300
+1 1 2 1 1
+
+Séquence 15
+4659
+0 0
+
+Séquence 16
+0
+
+Séquence 17
+094800
+0 0 0 0 0 0
+
+Séquence 18
+095029
+0
+
+Séquence 19 : gestes parasites
+095137
+1 1 1 1 1
+
+Séquence 20 :
+5337
+1coup droit amorti 2 2 faux mouvement
+
+Séquence 21 :
+095524
+0 1 2 1 0 1 1
+
+Séquence 22 :
+595702
+1 1 2 1beugué
+
+Homme
+Séquence 1:
+101728
+0 0 0 0
+
+Séquence 2 :
+101827
+0 0 0 0
+
+Séquence 3 :
+101934
+0 0 0 0 1coupé
+
+Séquence 4: 102111
+1
+
+Séquence 5
+102130
+2 1 2coupé 1 1moitie
+
+Séquence 6
+102234 : mvt parasite
+2coupe 1 1 1 1 2coupe smash
+
+Séquence 7 :
+102511
+0 0 1 1coupe 0 2coupe 1 2coupe
+
+Séquence 8:
+102622
+0 2coupe 2coupe 0 0
+
+Séquence 9 :
+102804
+1 1 2 2 smash 1 smash
+
+Séquence 10 : bordel
+102858
+1 1 2vole 1vole
+
+Séquence 11 :
+102933
+2 1 1 2
+
+Séquence 12 :
+1030
+1 1 2 2(pas sûr)
+
+Séquence 13:
+103127
+1 1 2 2 1
+
+Séquence 14: faux mouvement
+103205
+1 2coupe 1
+
+Séquence 15 :
+103504
+0 0 1 smash 1
+
+Séquence 16
+103553
+0 2coupe 0 0
+
+Séquence 17
+103649
+0 2 1 2coupe 1 2vole
