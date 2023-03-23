@@ -19,7 +19,7 @@ frequence = 60
 intervalle = 30 #Intervalle doit pouvoir s'adapter pour le premier et le dernier coup si l'on coupe ou lance trop tot l'enregistrement mais rester à 30 pour le reste des essais
 pourcentage_max = 40
 
-new_shot_data = pd.read_csv("data/092212.csv", skiprows=range(0,11), usecols=range(2,8))
+new_shot_data = pd.read_csv("data/095029.csv", skiprows=range(0,11), usecols=range(2,8))
 new_shot_data.columns = ["AccX", "AccY", "AccZ", "GyrX", "GyrY", "GyrZ"]
 
 #Filtrage des données
@@ -42,20 +42,22 @@ if (AccX_peaks[0][0]) <= intervalle :
 if (len(new_shot_data)-AccX_peaks[0][-1]) <= intervalle :
     intervalle=(len(new_shot_data)-AccX_peaks[0][-1])
 
-plt.plot(new_shot_data["AccX"])
-plt.axhline(maxX, color='red', linestyle='--', label='Maximum')
-plt.axhline(seuil_max, color='green', linestyle='-.', label='Seuil de detection')
-plt.legend()
-
-
-#plt.plot(new_shot_data["AccY"])
-#plt.plot(new_shot_data["AccZ"])
-plt.show()
 peaks = AccX_peaks[0]
 
+fig, ax = plt.subplots()
+ax.plot(new_shot_data["AccX"])
+ax.plot(new_shot_data["AccY"])
+ax.plot(new_shot_data["AccZ"])
+ax.axhline(maxX, color='red', linestyle='--', label='Maximum')
+ax.axhline(seuil_max, color='green', linestyle='-.', label='Seuil de detection')
+for i in peaks:
+    ax.axvline(x=(i-intervalle), color='k', linestyle=':', label="Intervalle d'analyse")
+    ax.axvline(x=(i+intervalle), color='k', linestyle=':')
+ax.legend()
+plt.show()
 
 
-NB_shots = len(AccX_peaks[0])
+
 
 to_predict_shot = pd.DataFrame(columns=cols_labels)
 
@@ -89,6 +91,7 @@ Y = data["TypeOfShot"]
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
 
+print("Random Forest :")
 clf = RandomForestClassifier(n_estimators=250,criterion="entropy",max_depth=12,min_samples_split=4,min_samples_leaf=1,max_features=8,bootstrap=False)
 clf.fit(X_train, Y_train)
 y_pred = clf.predict(X_test)
@@ -100,6 +103,7 @@ print("Accuracy : ", accuracy_score(Y_test, y_pred))
 print("Precision : ", precision_score(Y_test, y_pred, average='weighted', zero_division=1))
 print("___________")
 
+print("SVM :")
 
 clf = SVC(kernel='rbf', C=1, gamma='scale', random_state=42)
 clf.fit(X_train, Y_train)
