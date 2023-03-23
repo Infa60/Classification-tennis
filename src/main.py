@@ -17,22 +17,22 @@ cols_labels = ["AccXMean", "AccXSD", "AccXSkew", "AccXKurtosis", "AccXMin", "Acc
 
 frequence = 60
 intervalle = 30 #Intervalle doit pouvoir s'adapter pour le premier et le dernier coup si l'on coupe ou lance trop tot l'enregistrement mais rester à 30 pour le reste des essais
-pourcentage_prominence = 50
+pourcentage_max = 40
 
-new_shot_data = pd.read_csv("data/092712.csv", skiprows=range(0,11), usecols=range(2,8))
+new_shot_data = pd.read_csv("data/092212.csv", skiprows=range(0,11), usecols=range(2,8))
 new_shot_data.columns = ["AccX", "AccY", "AccZ", "GyrX", "GyrY", "GyrZ"]
 
 #Filtrage des données
-new_shot_data["AccX"]=LP_filter(new_shot_data["AccX"],6,frequence) 
-new_shot_data["AccY"]=LP_filter(new_shot_data["AccY"],6,frequence) 
-new_shot_data["AccZ"]=LP_filter(new_shot_data["AccZ"],6,frequence) 
-new_shot_data["GyrX"]=LP_filter(new_shot_data["GyrX"],6,frequence) 
-new_shot_data["GyrY"]=LP_filter(new_shot_data["GyrY"],6,frequence) 
-new_shot_data["GyrZ"]=LP_filter(new_shot_data["GyrZ"],6,frequence) 
+#new_shot_data["AccX"]=LP_filter(new_shot_data["AccX"],6,frequence) 
+#new_shot_data["AccY"]=LP_filter(new_shot_data["AccY"],6,frequence) 
+#new_shot_data["AccZ"]=LP_filter(new_shot_data["AccZ"],6,frequence) 
+#new_shot_data["GyrX"]=LP_filter(new_shot_data["GyrX"],6,frequence) 
+#new_shot_data["GyrY"]=LP_filter(new_shot_data["GyrY"],6,frequence) 
+#new_shot_data["GyrZ"]=LP_filter(new_shot_data["GyrZ"],6,frequence) 
 
 maxX = np.max(new_shot_data["AccX"])
-seuil_prominence = maxX * pourcentage_prominence / 100
-AccX_peaks = find_peaks(new_shot_data["AccX"],prominence=seuil_prominence, distance=40)
+seuil_max = maxX * pourcentage_max / 100
+AccX_peaks = find_peaks(new_shot_data["AccX"],height=seuil_max, distance=40)
 
 print(AccX_peaks)
 
@@ -43,6 +43,13 @@ if (len(new_shot_data)-AccX_peaks[0][-1]) <= intervalle :
     intervalle=(len(new_shot_data)-AccX_peaks[0][-1])
 
 plt.plot(new_shot_data["AccX"])
+plt.axhline(maxX, color='red', linestyle='--', label='Maximum')
+plt.axhline(seuil_max, color='green', linestyle='-.', label='Seuil de detection')
+plt.legend()
+
+
+#plt.plot(new_shot_data["AccY"])
+#plt.plot(new_shot_data["AccZ"])
 plt.show()
 peaks = AccX_peaks[0]
 
@@ -91,19 +98,6 @@ print(typeofshot)
 
 print("Accuracy : ", accuracy_score(Y_test, y_pred))
 print("Precision : ", precision_score(Y_test, y_pred, average='weighted', zero_division=1))
-print("___________")
-
-clf = MLPClassifier(hidden_layer_sizes=(100, 50), activation="relu", solver="adam", max_iter=500, 
-                    random_state=42, learning_rate_init=0.001, momentum=0.9, alpha=0.0001, batch_size=32,
-                    early_stopping=True, validation_fraction=0.2,verbose=False)
-clf.fit(X_train, Y_train)
-y_pred2 = clf.predict(X_test)
-
-typeofshot2 = clf.predict(to_predict_shot)
-print(typeofshot2)
-
-print("Accuracy : ", accuracy_score(Y_test, y_pred2))
-print("Precision : ", precision_score(Y_test, y_pred2, average='weighted', zero_division=1))
 print("___________")
 
 
