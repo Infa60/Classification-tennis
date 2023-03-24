@@ -19,7 +19,7 @@ frequence = 60
 intervalle = 30 #Intervalle doit pouvoir s'adapter pour le premier et le dernier coup si l'on coupe ou lance trop tot l'enregistrement mais rester à 30 pour le reste des essais
 pourcentage_max = 40
 
-new_shot_data = pd.read_csv("data/095029.csv", skiprows=range(0,11), usecols=range(2,8))
+new_shot_data = pd.read_csv("data/095137.csv", skiprows=range(0,11), usecols=range(2,8))
 new_shot_data.columns = ["AccX", "AccY", "AccZ", "GyrX", "GyrY", "GyrZ"]
 
 #Filtrage des données
@@ -46,8 +46,8 @@ peaks = AccX_peaks[0]
 
 fig, ax = plt.subplots()
 ax.plot(new_shot_data["AccX"])
-ax.plot(new_shot_data["AccY"])
-ax.plot(new_shot_data["AccZ"])
+#ax.plot(new_shot_data["AccY"])
+#ax.plot(new_shot_data["AccZ"])
 ax.axhline(maxX, color='red', linestyle='--', label='Maximum')
 ax.axhline(seuil_max, color='green', linestyle='-.', label='Seuil de detection')
 for i in peaks:
@@ -92,7 +92,7 @@ Y = data["TypeOfShot"]
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
 
 print("Random Forest :")
-clf = RandomForestClassifier(n_estimators=250,criterion="entropy",max_depth=12,min_samples_split=4,min_samples_leaf=1,max_features=8,bootstrap=False)
+clf = RandomForestClassifier(n_estimators=250,criterion="gini",max_depth=12,min_samples_split=4,min_samples_leaf=1,max_features=8,bootstrap=False)
 clf.fit(X_train, Y_train)
 y_pred = clf.predict(X_test)
 
